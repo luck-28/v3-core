@@ -12,7 +12,7 @@ This repo contains the on-chain building blocks used by Momentum’s DEX and rel
 This repo currently ships two Move packages:
 
 - **`clmm/`** – Core CLMM protocol: pools, positions, ticks, swap/quote, fees, and liquidity accounting.
-- **`slippage_check/`** – Pure-function helpers to verify minimum-out / maximum-in constraints off-path and on-chain. Useful for routers, frontends, MEV-safe flows, and risk control.
+- **`slippage_check/`** – Pure-function helpers for slippage check.
 
 ```
 v3-core/
@@ -40,8 +40,8 @@ From the repo root:
 
 ```bash
 # Build each package
-sui move build --skip-fetch-remote-packages --path clmm
-sui move build --skip-fetch-remote-packages --path slippage_check
+sui move build --path clmm
+sui move build --path slippage_check
 
 # Run unit tests
 sui move test --path clmm
