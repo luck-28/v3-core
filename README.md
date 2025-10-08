@@ -34,7 +34,7 @@ v3-core/
 
 > If you’re integrating from an app/service, you’ll usually pair these contracts with the [`@mmt-finance/clmm-sdk`](https://github.com/mmt-finance/clmm-sdk) TypeScript library.
 
-## Build & test
+## Build, test & deploy
 
 From the repo root:
 
@@ -46,6 +46,10 @@ sui move build --skip-fetch-remote-packages --path slippage_check
 # Run unit tests
 sui move test --path clmm
 sui move test --path slippage_check
+
+# Deploy
+sui client publish --path clmm
+sui client publish --path slippage_check
 ```
 
 ### Developer documentation
@@ -73,7 +77,7 @@ For complete audit results, risk assessments, and findings, see the official aud
 
 [View full audit reports →](https://docs.mmt.finance/core-products/momentum-dex/developers/audit-report)
 
-## Security bounty (Coming soon)
+### Security bounty (Coming soon)
 
 ## Links
 
