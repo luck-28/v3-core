@@ -6,7 +6,6 @@ use mmt_v3::app;
 use mmt_v3::collect;
 use mmt_v3::constants;
 use mmt_v3::global_config;
-use mmt_v3::i64;
 use mmt_v3::liquidity;
 use mmt_v3::pool;
 use mmt_v3::position;
@@ -430,14 +429,11 @@ public fun add_liquidity_single_sided_b() {
         &version,
         test_scenario::ctx(&mut scenario),
     );
-    std::debug::print(&4738942398342);
 
     let sui_amount = balance::value(&balance_x);
-    std::debug::print(&sui_amount);
     transfer::public_transfer(position, tester1);
 
     let remaining_usdc_amount = 10 * USDC_DECIMALS - swap_amount;
-    std::debug::print(&remaining_usdc_amount);
     let (_, _, position) = add_liquidity_<SUI, USDC>(
         &mut pool,
         sui_amount / SUI_DECIMALS,
@@ -450,8 +446,8 @@ public fun add_liquidity_single_sided_b() {
         &mut scenario,
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     clock::destroy_for_testing(clock);
     transfer::public_transfer(position, tester1);
     th::return_pool<SUI, USDC>(pool);
@@ -502,8 +498,6 @@ public fun add_liquidity_single_sided_a() {
         true,
         20,
     );
-    std::debug::print(&swap_amount);
-    std::debug::print(&fix_a);
     let (balance_x, balance_y, swap_receipt) = trade::flash_swap<SUI, USDC>(
         &mut pool,
         true, // is x 2 y
@@ -523,14 +517,11 @@ public fun add_liquidity_single_sided_a() {
         &version,
         test_scenario::ctx(&mut scenario),
     );
-    std::debug::print(&4738942398342);
 
     let usdc_amount = balance::value(&balance_y);
-    std::debug::print(&usdc_amount);
     transfer::public_transfer(position, tester1);
 
     let remaining_sui_amount = 10 * SUI_DECIMALS - swap_amount;
-    std::debug::print(&remaining_sui_amount);
     let (_, _, position) = add_liquidity_<SUI, USDC>(
         &mut pool,
         remaining_sui_amount / SUI_DECIMALS,
@@ -543,8 +534,8 @@ public fun add_liquidity_single_sided_a() {
         &mut scenario,
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     clock::destroy_for_testing(clock);
     transfer::public_transfer(position, tester1);
     th::return_pool<SUI, USDC>(pool);
@@ -1004,8 +995,8 @@ public fun initialise_out_rage_and_swap() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1249,8 +1240,8 @@ public fun add_lp_discrete_and_swap() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1350,9 +1341,6 @@ public fun oracle() {
         vector::singleton(clock::timestamp_ms(&clock)),
         &clock,
     );
-    std::debug::print(&4327823478243);
-    std::debug::print<vector<i64::I64>>(&res);
-    std::debug::print<vector<u256>>(&res1);
 
     th::return_pool<SUI, USDC>(pool);
     version::destroy_version_for_testing(version);
@@ -1471,8 +1459,8 @@ public fun swap_y_to_x() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1534,8 +1522,8 @@ public fun swap_arithmetic() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1558,8 +1546,8 @@ public fun swap_arithmetic() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1600,8 +1588,8 @@ public fun swap_arithmetic() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1662,8 +1650,8 @@ public fun swap_x_to_y() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1732,8 +1720,8 @@ public fun protocol_fee() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
 
     trade::repay_flash_swap<SUI, USDC>(
@@ -1768,8 +1756,6 @@ public fun protocol_fee() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&123312312313);
-    std::debug::print(&pool);
     th::return_pool<SUI, USDC>(pool);
     clock::destroy_for_testing(clock);
     version::destroy_version_for_testing(version);
@@ -1830,8 +1816,7 @@ public fun rewards() {
         &version,
         test_scenario::ctx(&mut scenario),
     );
-    // std::debug::print(&13123131);
-    std::debug::print(&coin::burn_for_testing<SUI>(reward));
+    coin::burn_for_testing<SUI>(reward);
 
     // cuurent time - 601s
     clock::increment_for_testing(&mut clock, 601 * 1000);
@@ -1844,8 +1829,7 @@ public fun rewards() {
         &version,
         test_scenario::ctx(&mut scenario),
     );
-    std::debug::print(&13123131);
-    std::debug::print(&coin::burn_for_testing<SUI>(reward));
+    coin::burn_for_testing<SUI>(reward);
 
     // cuurent time - 701s
     clock::increment_for_testing(&mut clock, 100 * 1000);
@@ -1876,8 +1860,8 @@ public fun rewards() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&balance::destroy_for_testing<SUI>(balance_x));
-    std::debug::print(&balance::destroy_for_testing<USDC>(balance_y));
+    balance::destroy_for_testing<SUI>(balance_x);
+    balance::destroy_for_testing<USDC>(balance_y);
     let (pay_x, pay_y) = trade::swap_receipt_debts(&swap_receipt);
     trade::repay_flash_swap<SUI, USDC>(
         &mut pool,
@@ -1921,9 +1905,8 @@ public fun rewards() {
         &version,
         test_scenario::ctx(&mut scenario),
     );
-    std::debug::print(&13123131);
-    std::debug::print(&coin::burn_for_testing<SUI>(reward));
-    std::debug::print(&coin::burn_for_testing<SUI>(rewardf));
+    coin::burn_for_testing<SUI>(reward);
+    coin::burn_for_testing<SUI>(rewardf);
     transfer::public_transfer(position1, tester1);
     app::destroy_acl_for_testing(admin_cap);
     th::return_pool<SUI, USDC>(pool);
@@ -2011,8 +1994,6 @@ public fun rewards_remove_lp() {
         test_scenario::ctx(&mut scenario),
     );
     let position_liquidity = position::liquidity(&position);
-    std::debug::print(&position::owed_coin_x(&position));
-    std::debug::print(&position::owed_coin_y(&position));
     let (rem_x, rem_y) = liquidity::remove_liquidity(
         &mut pool,
         &mut position,
@@ -2023,14 +2004,12 @@ public fun rewards_remove_lp() {
         &version,
         test_scenario::ctx(&mut scenario),
     );
-    std::debug::print(&position::owed_coin_x(&position));
-    std::debug::print(&position::owed_coin_y(&position));
-    std::debug::print(&coin::burn_for_testing<SUI>(rem_x));
-    std::debug::print(&coin::burn_for_testing<USDC>(rem_y));
-    std::debug::print(&77777742734727);
-    std::debug::print(&coin::burn_for_testing<SUI>(reward));
-    std::debug::print(&coin::burn_for_testing<SUI>(fee_x));
-    std::debug::print(&coin::burn_for_testing<USDC>(fee_y));
+
+    coin::burn_for_testing<SUI>(rem_x);
+    coin::burn_for_testing<USDC>(rem_y);
+    coin::burn_for_testing<SUI>(reward);
+    coin::burn_for_testing<SUI>(fee_x);
+    coin::burn_for_testing<USDC>(fee_y);
 
     liquidity::close_position(
         position,
@@ -2129,7 +2108,7 @@ public fun multi_rewards() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&coin::burn_for_testing<SUI>(reward));
+  coin::burn_for_testing<SUI>(reward);
 
     let reward_1 = collect::reward<SUI, USDC, USDC>(
         &mut pool,
@@ -2139,7 +2118,7 @@ public fun multi_rewards() {
         test_scenario::ctx(&mut scenario),
     );
 
-    std::debug::print(&coin::burn_for_testing<USDC>(reward_1));
+    coin::burn_for_testing<USDC>(reward_1);
 
     app::destroy_acl_for_testing(admin_cap);
     th::return_pool<SUI, USDC>(pool);

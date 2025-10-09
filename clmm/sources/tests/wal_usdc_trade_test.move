@@ -121,7 +121,6 @@ fun execute_flash_swap(
         version,
         test_scenario::ctx(scenario),
     );
-    std::debug::print(&balanceY);
 
     balanceX.destroy_for_testing();
     balanceY.destroy_for_testing();
@@ -152,7 +151,6 @@ fun run_test(swap_amount: u64, tick_range_factor: u32, lower_tick: i32::I32, upp
 
     let mut pool = setup_pool_with_tick_range(&mut scenario, &version, &acl, tick_range_factor);
     add_liquidity_to_pool(&mut pool, lower_tick, upper_tick, &mut scenario, &clock, &version);
-    std::debug::print(&pool::liquidity(&pool));
     execute_flash_swap(&mut pool, swap_amount, &mut scenario, &clock, &version);
 
     cleanup_test_environment(pool, version, clock, acl, scenario);
